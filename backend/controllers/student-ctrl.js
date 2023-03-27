@@ -1,152 +1,84 @@
 const Student = require('../models/student_model')
+const mongoose = require('mongoose')
+const { where } = require('../models/student_model')
 
-createStudent = (req, res) => {
+createStudent = async (req, res) => {
   const body = req.body
 
-  if (!body) {
-    return res.status(400).json({
-      success: false,
-      error: 'You must provide a valid student data object',
-    })
+  try {
+    const student = await Student.create(body)
+    return res.status(201).json(student)
+  } catch (error) {
+    return res.status(400).json({ error: error.message })
   }
-
-  const student = new Student(body)
-
-  if (!student) {
-    return res.status(400).json({
-      success: false,
-      error: err,
-    })
-  }
-
-  student
-    .save()
-    .then(() => {
-      return res.status(201).json({
-        success: true,
-        id: student._id,
-        message: 'Student created',
-      })
-    })
-    .catch((error) => {
-      error, (message = 'Student not created')
-    })
 }
 
 updateStudent = async (req, res) => {
   const body = req.body
-
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'Invalid id parameter' })
+  }
   if (!body) {
     return res.status(400).json({
       success: false,
-      message: 'You need to provide student to update',
+      message: 'You need to provide data to update',
     })
   }
 
-  await Student.findOne({ _id: req.params.id }, (err, student) => {
-    if (err) {
-      return res.status(400).json({
-        err,
-        message: 'Student not found!',
-      })
+  const student = await Student.findOneAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
     }
-    student.firstname = body.firstname
-    student.lastname = body.lastname
-    student.email = body.email
-    student.phoneNo = body.phone_no
-    student.level = body.level
-    student.regNo = body.reg_no
+  )
 
-    student
-      .save()
-      .then(() => {
-        return res.status(200).json({
-          success: true,
-          id: student._id,
-          message: 'Student updated',
-        })
-      })
-      .catch((err) => {
-        return res.status(400).json({
-          err,
-          message: 'Student not updated',
-        })
-      })
-  })
+  if (!student) {
+    return res.status(404).json({ error: 'No student found' })
+  }
+  return res.status(200).json(student)
 }
 
 deleteStudent = async (req, res) => {
-  await Student.findOneAndDelete({ id: req.params.id }, (err, student) => {
-    if (err) {
-      return res.status(400).json({
-        success: false,
-        error: err,
-      })
-    }
-
-    if (!student) {
-      return res.status(404).json({
-        success: false,
-        message: 'Student not found',
-      })
-    }
-
-    return res
-      .status(200)
-      .json({
-        success: true,
-        data: student,
-      })
-      .clone()
-      .catch((err) => {
-        console.log(err)
-      })
-  })
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'Invalid id parameter' })
+  }
+  const student = await Student.findOneAndDelete({ id: req.params.id })
+  if (!student) {
+    return res.status(404).json({ error: 'No student found' })
+  }
+  return res.status(200).json(student)
 }
 
 getStudentById = async (req, res) => {
-  await Student.findOne({ _id: req.params.id }, (err, student) => {
-    if (err) {
-      return res.status(400).json({
-        success: false,
-        message: err,
-      })
-    }
+  const { id } = req.params
 
-    if (!student) {
-      return res.status(404).json({
-        success: false,
-        error: 'Student not found',
-      })
-    }
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'Invalid id parameter' })
+  }
+  const student = await Student.findById({ _id: req.params.id }).populate(
+    'events'
+  )
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        data: student,
-      })
-      .clone()
-      .catch((error) => console.log(error))
-  })
+  if (!student) {
+    return res.status(404).json({ error: 'No student found' })
+  }
+  return res.status(200).json(student)
 }
 
 getStudents = async (req, res) => {
-  await Student.find({}, (err, students) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err })
-    }
-    if (!students.length) {
-      return res
-        .status(404)
-        .json({ success: false, error: 'Student not found' })
-    }
+  try {
+    const students = await Student.find({})
+      .populate('events')
+      .sort({ createdAt: -1 })
 
-    return res.status(200).json({ success: true, data: students })
-  })
-    .clone()
-    .catch((error) => console.log(error))
+    return res.status(200).json(students)
+  } catch (error) {
+    return res.status(404).json({ error: error.message })
+  }
 }
+
 
 module.exports = {
   createStudent,
@@ -155,11 +87,3 @@ module.exports = {
   getStudentById,
   getStudents,
 }
-
-// app.get("/getStudents", async (req, res) => {
-//     const db = client.db()
-//     const count = await db.collection("movies").estimatedDocumentCount();
-//     console.log(count);
-
-//     return res.status(200).json({ success: true, data: count })
-// })

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const QandR_model = require('./query_and_rec_model')
 const Schema = mongoose.Schema
+const { ObjectId } = mongoose.Schema
 
 const Student = new Schema(
   {
@@ -10,8 +10,9 @@ const Student = new Schema(
     password: { type: String, required: true },
     phoneNo: { type: String, required: true },
     regNo: { type: String, required: false },
+    gender: { type: String, required: false },
     level: { type: Number, required: true },
-    admin: { type: boolean, default: false },
+    admin: { type: Boolean, default: false },
   },
   { timestamps: true }
 )
