@@ -6,5 +6,6 @@ router.patch('/students/:id', StudentCtrl.updateStudent)
 router.delete('/students/:id', StudentCtrl.deleteStudent)
 router.get('/students/:id', StudentCtrl.getStudentById)
 router.get('/students', StudentCtrl.getStudents)
+router.post('/student/login', StudentCtrl.login)
 
 module.exports = router

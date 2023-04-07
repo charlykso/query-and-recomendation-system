@@ -8,5 +8,6 @@ router.get('/lecturers/:id', LecturerCtrl.getLecturerById);
 router.get('/lecturers', LecturerCtrl.getLecturers)
 router.patch('/lecturers/:id', LecturerCtrl.updateLecturer);
 router.delete('/lecturers/:id', LecturerCtrl.deleteLecturer);
+router.post('/lecturer/login', LecturerCtrl.login)
 
 module.exports = router;
