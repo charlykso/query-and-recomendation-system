@@ -1,37 +1,37 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import apis from './api/index'
+import { Route, Routes } from 'react-router-dom'
+import AdminLandingPage from "./admin/AdminPages/AdminLanding";
+import LecturerLandingPage from "./lecturer/lecturerPages/LecturerLanding";
+import StudentLandingPage from "./student/pages/StudentLanding";
+import AdminEvents from './admin/AdminPages/AdminEvents';
+import AdminHome from './admin/AdminPages/AdminHome';
+import AdminStudents from './admin/AdminPages/AdminStudents';
+import AdminLecturers from './admin/AdminPages/AdminLecturers';
+import AdminCourses from './admin/AdminPages/AdminCourses';
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [movies, setMovies] = useState({})
-  const newmovies = apis.getAllMovies().then(movie => {
-    setMovies(movie.data.data);
-  })
 
   return (
     <div className='App'>
-      <div>
-        <a href='https://vitejs.dev' target='_blank'>
-          <img src='/vite.svg' className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://reactjs.org' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card text-center'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p className='text-center'>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        {movies.map((m) => (
-          <h4 className='text-red-400'>{m.name}</h4>
-        ))}
-      </div>
+      <Routes>
+        <Route path='/admin' element={<AdminLandingPage />}>
+          <Route path='/admin' element={<AdminHome />} />
+          <Route path='/admin/students' element={<AdminStudents />}/>
+          <Route path='/admin/lecturers' element={<AdminLecturers />}/>
+          <Route path='/admin/courses' element={<AdminCourses />}/>
+          <Route path='/admin/events' element={<AdminEvents />} />
+          <Route path='/admin/course_allocation' />
+        </Route>
+        <Route path='/' element={<StudentLandingPage />}>
+          <Route path='/events/create' />
+          <Route path='/students/:Id/events' />
+        </Route>
+        <Route path='/lecturer' element={<LecturerLandingPage />}>
+          <Route path='/lecturer/events' />
+        </Route>
+      </Routes>
     </div>
   )
 }
