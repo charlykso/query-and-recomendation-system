@@ -4,20 +4,12 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Outlet } from 'react-router-dom';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  height: 140,
-  color: theme.palette.text.secondary,
-}));
+import CssBaseline from '@mui/material/CssBaseline';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -25,11 +17,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const AdminLanding = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ }}>
+        <CssBaseline />
         <Sidebar />
-        <DrawerHeader />
-        <Box component="main" sx={{ flexGrow: 1, px: 3, py: 10,  }}>
-          <Outlet />
+        <Box sx={{py: 3, pr: 3, pl: 11}}>
+          <DrawerHeader />
+            <Outlet />
         </Box>
     </Box>
   )

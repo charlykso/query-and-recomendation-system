@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import apis from './api/index'
 import { Route, Routes } from 'react-router-dom'
 import AdminLandingPage from "./admin/AdminPages/AdminLanding";
 import LecturerLandingPage from "./lecturer/lecturerPages/LecturerLanding";

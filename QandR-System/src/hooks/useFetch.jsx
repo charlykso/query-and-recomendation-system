@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 const useFetch = (url) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
       const abortCont = new AbortController()

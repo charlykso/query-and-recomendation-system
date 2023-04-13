@@ -127,7 +127,7 @@ const Sidebar = () => {
 
   return (
     <>
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <AppBar position="fixed" open={open}>
           <Toolbar>
             <IconButton
@@ -332,7 +332,7 @@ const Sidebar = () => {
         </List>
       </Drawer>
 
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: '2' }} elevation={1}>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: '2'}} elevation={1}>
         <BottomNavigation
           showLabels
           value={value}
@@ -340,7 +340,7 @@ const Sidebar = () => {
             setValue(newValue);
           }}
           sx={{
-            justifyContent: 'flex-end'
+            justifyContent: 'flex-end', alignItems: 'center'
           }}
         >
           <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
