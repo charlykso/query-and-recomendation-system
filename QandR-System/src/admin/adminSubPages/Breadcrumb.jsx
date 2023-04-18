@@ -9,9 +9,15 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import EventIcon from '@mui/icons-material/Event'
 import Grid from '@mui/material/Unstable_Grid2';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Breadcrumb = ({location}) => {
-const [button, setButton] = useState(1)
+  const [button, setButton] = useState(1)
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  }
   useEffect(() => {
     if (location === '/admin/students') {
       setButton(1)
@@ -83,7 +89,7 @@ const [button, setButton] = useState(1)
               underline="none"
               sx={{ display: 'flex', alignItems: 'center' }}
               color="inherit"
-              href="/admin/createStudent"
+              href="/admin/Students/create"
               ><Button variant="contained">+ AddStudent</Button>
               </Link>
               }
@@ -92,7 +98,7 @@ const [button, setButton] = useState(1)
               underline="none"
               sx={{ display: 'flex', alignItems: 'center' }}
               color="inherit"
-              href="/admin/createLecturer"
+              href="/admin/Lecturers/create"
               ><Button variant="contained">+ AddLecturer</Button>
               </Link>
               }
@@ -114,6 +120,7 @@ const [button, setButton] = useState(1)
               ><Button variant="contained">+ AddCourse</Button>
               </Link>
               }
+            {button == -1 && (<Button variant='contained' onClick={handleGoBack} >Go Back</Button>)}
         </Grid>
       </Grid>
     </Box>

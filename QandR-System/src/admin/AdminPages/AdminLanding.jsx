@@ -20,7 +20,7 @@ const AdminLanding = () => {
     <Box sx={{ }}>
         <CssBaseline />
         <Sidebar />
-        <Box sx={{py: 3, pr: 3, pl: 11}}>
+        <Box sx={{pt: 3, pb: 11, pr: 3, pl: 11}}>
           <DrawerHeader />
             <Outlet />
         </Box>

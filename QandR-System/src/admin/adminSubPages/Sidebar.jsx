@@ -33,6 +33,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Link } from 'react-router-dom'
+import Tooltip from '@mui/material/Tooltip'
 
 const drawerWidth = 240;
 
@@ -181,7 +182,9 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                <Dashboard />
+                  <Tooltip title="Dashboard" arrow>
+                    <Dashboard />
+                  </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary='Dashboard' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -210,7 +213,9 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                <People />
+                  <Tooltip title="Students" arrow>
+                    <People />
+                  </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary='Students' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -239,7 +244,9 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                <SchoolIcon />
+                  <Tooltip title="Lecturers" arrow>
+                    <SchoolIcon />
+                  </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary='Lecturers' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -268,7 +275,9 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                <LibraryBooksIcon />
+                  <Tooltip title="Courses" arrow>
+                    <LibraryBooksIcon />
+                  </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary='Courses' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -297,7 +306,9 @@ const Sidebar = () => {
                       justifyContent: 'center',
                     }}
                   >
-                  <EventIcon />
+                    <Tooltip title="Events" arrow>
+                      <EventIcon />
+                    </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary='Events' sx={{ opacity: open ? 1 : 0 }} />
                   
@@ -307,28 +318,68 @@ const Sidebar = () => {
         </List>
         <Divider />
         <List>
-          {['Query', 'Recommendation'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+          <ListItem key='Query' disablePadding sx={{ display: 'block' }}>
+              <Link to='/admin/events/queries'>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
+                  id='query-button'
+                  onClick={handleClick}
+                  aria-controls={openMenu ? 'query-menu' : undefined}
+                  aria-haspopup='true'
+                  aria-expanded={openMenu ? 'true' : undefined}
                 >
-                  {index == 1 ? <EventBusyIcon /> : <EventAvailableIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  
+          
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Tooltip title="Queries" arrow>
+                      <EventBusyIcon />
+                    </Tooltip>
+                    </ListItemIcon>
+                    <ListItemText primary='Query' sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>
+          </ListItem>
+          <ListItem key='Recommendation' disablePadding sx={{ display: 'block' }}>
+              <Link to='/admin/events/Recommendations'>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                  id='Recommendation-button'
+                  onClick={handleClick}
+                  aria-controls={openMenu ? 'Recommendation-menu' : undefined}
+                  aria-haspopup='true'
+                  aria-expanded={openMenu ? 'true' : undefined}
+                >
+                  
+          
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Tooltip title="Recommendation" arrow>
+                      <EventAvailableIcon />
+                    </Tooltip>
+                    </ListItemIcon>
+                    <ListItemText primary='Recommendation' sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>
+          </ListItem>
         </List>
       </Drawer>
 

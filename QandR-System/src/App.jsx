@@ -8,6 +8,10 @@ import AdminHome from './admin/AdminPages/AdminHome';
 import AdminStudents from './admin/AdminPages/AdminStudents';
 import AdminLecturers from './admin/AdminPages/AdminLecturers';
 import AdminCourses from './admin/AdminPages/AdminCourses';
+import UpdateLecturers from './admin/adminSubPages/UpdateLecturers';
+import CreateLecturer from './admin/AdminPages/CreateLecturer';
+import UpdateStudent from './admin/adminSubPages/UpdateStudent';
+import AdminCreateStudent from './admin/AdminPages/AdminCreateStudent';
 
 
 function App() {
@@ -17,10 +21,14 @@ function App() {
       <Routes>
         <Route path='/admin' element={<AdminLandingPage />}>
           <Route path='/admin' element={<AdminHome />} />
-          <Route path='/admin/students' element={<AdminStudents />}/>
-          <Route path='/admin/lecturers' element={<AdminLecturers />}/>
-          <Route path='/admin/courses' element={<AdminCourses />}/>
-          <Route path='/admin/events' element={<AdminEvents />} />
+          <Route path='courses' element={<AdminCourses />}/>
+          <Route path='events' element={<AdminEvents />} />
+          <Route path='students' element={<AdminStudents />}/>
+          <Route path='students/:Id/update' element={<UpdateStudent />}/>
+          <Route path='students/create' element={<AdminCreateStudent />}/>
+          <Route path='lecturers' element={<AdminLecturers />}/>
+          <Route path='lecturer/:Id/update' element={<UpdateLecturers />}/>
+          <Route path='lecturers/create' element={<CreateLecturer />} />
           <Route path='/admin/course_allocation' />
         </Route>
         <Route path='/' element={<StudentLandingPage />}>
