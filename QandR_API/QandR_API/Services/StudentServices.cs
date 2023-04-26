@@ -23,7 +23,7 @@ namespace QandR_API.Services
 
         public async Task<bool> CheckStudentEmail(string email)
         {
-            var exists = await _dbContext!.Students.FirstOrDefaultAsync(e => e.Email == email);
+            var exists = await _dbContext!.Students.Where(e => e.Email == email).FirstOrDefaultAsync();
             if (exists == null)
             {
                 return false;
@@ -76,6 +76,7 @@ namespace QandR_API.Services
             try
             {
                 var student = await _dbContext!.Students.FindAsync(id);
+                Console.WriteLine(student);
                 if (student == null)
                 {
                     throw new Exception("Student not found");

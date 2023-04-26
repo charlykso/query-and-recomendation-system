@@ -50,7 +50,7 @@ namespace QandR_API.Migrations
                     b.Property<int>("Unit")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Update_at")
+                    b.Property<DateTime?>("Updated_at")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -193,12 +193,14 @@ namespace QandR_API.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CourseId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_at")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LecturerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Updated_at")
@@ -316,11 +318,15 @@ namespace QandR_API.Migrations
                 {
                     b.HasOne("QandR_API.Models.Course", "Course")
                         .WithMany("lecturer_Courses")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("QandR_API.Models.Lecturer", "Lecturer")
                         .WithMany("Lecturer_Courses")
-                        .HasForeignKey("LecturerId");
+                        .HasForeignKey("LecturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
 

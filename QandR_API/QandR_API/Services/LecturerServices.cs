@@ -73,15 +73,17 @@ namespace QandR_API.Services
         {
             try
             {
-                var lecturer = await _dbContext!.Lecturers.FindAsync(id);
-                if (lecturer == null)
+                var lecturer = await _dbContext!.Lecturers.Include(c => c.Lecturer_Courses).Include(e => e.Events).SingleOrDefaultAsync(l => l.Id == id);
+                Console.WriteLine(lecturer);
+                if (lecturer != null)
                 {
-                    throw new Exception("Lecturer not found");
+                    lecturer.Lecturer_Courses!.Clear();
+                    lecturer.Events!.Clear();
+                    _dbContext.Remove(lecturer);
+                    await _dbContext.SaveChangesAsync();
+                    return "Deleted successfuly";
                 }
-                _dbContext!.Lecturers.Remove(lecturer);
-                _dbContext.SaveChanges();
-                return "Deleted successfuly";
-
+                    throw new Exception("Lecturer not found");
             }
             catch (Exception ex)
             {
@@ -96,7 +98,7 @@ namespace QandR_API.Services
             {
                 var lecturer = await _dbContext!.Lecturers.Where(l => l.Id == id)
                     .Include(e => e.Events)
-                    .Include(c => c.Lecturer_Courses)
+                    .Include(c => c.Lecturer_Courses)!.ThenInclude(mc => mc.Course)
                     .FirstOrDefaultAsync();
 
                 if(lecturer == null)

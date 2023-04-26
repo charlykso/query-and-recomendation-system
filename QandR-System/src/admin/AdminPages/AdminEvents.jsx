@@ -82,7 +82,7 @@ const AdminEvents = () => {
                 underline="none"
                 sx={{ display: 'flex', alignItems: 'center' }}
                 color="inherit"
-                href={`course/${data.Id}/update`}
+                href={`events/${data.Id}/update`}
                 >
               <Button variant="contained" endIcon={<EditIcon />}>
                 Edit

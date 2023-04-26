@@ -27,6 +27,8 @@ const Breadcrumb = ({location}) => {
       setButton(3)
     } else if (location === '/admin/courses') {
       setButton(4)
+    } else if (location === '/admin/courseAllocations') {
+      setButton(5)
     } else {
       setButton(-1)
     }
@@ -107,7 +109,7 @@ const Breadcrumb = ({location}) => {
               underline="none"
               sx={{ display: 'flex', alignItems: 'center' }}
               color="inherit"
-              href="/admin/createEvent"
+              href="/admin/Events/create"
               ><Button variant="contained">+ AddEvent</Button>
               </Link>
               }
@@ -116,8 +118,17 @@ const Breadcrumb = ({location}) => {
               underline="none"
               sx={{ display: 'flex', alignItems: 'center' }}
               color="inherit"
-              href="/admin/createStudent"
+              href="/admin/Courses/Create"
               ><Button variant="contained">+ AddCourse</Button>
+              </Link>
+              }
+            {button == 5 && 
+            <Link
+              underline="none"
+              sx={{ display: 'flex', alignItems: 'center' }}
+              color="inherit"
+              href="/admin/courseAllocations/create"
+              ><Button variant="contained">+ AllocateCourse</Button>
               </Link>
               }
             {button == -1 && (<Button variant='contained' onClick={handleGoBack} >Go Back</Button>)}

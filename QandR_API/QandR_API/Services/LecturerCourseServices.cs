@@ -18,17 +18,25 @@ namespace QandR_API.Services
         {
             try
             {
-                var myNewCourse = new Lecturer_Course();
-                var Id = Guid.NewGuid();
-                myNewCourse.Id = Id.ToString();
-                myNewCourse.CourseId = l_course.CourseId;
-                myNewCourse.LecturerId = l_course.LecturerId;
-                myNewCourse.Created_at = DateTime.Now;
-                myNewCourse.Updated_at = DateTime.Now;
+                var allocation = await _dbContext!.Lecturer_Courses.Where(c => c.CourseId == l_course.CourseId && c.LecturerId == l_course.LecturerId).FirstOrDefaultAsync();
+                if (allocation == null)
+                {
+                    var myNewCourse = new Lecturer_Course();
+                    var Id = Guid.NewGuid();
+                    myNewCourse.Id = Id.ToString();
+                    myNewCourse.CourseId = l_course.CourseId;
+                    myNewCourse.LecturerId = l_course.LecturerId;
+                    myNewCourse.Created_at = DateTime.Now;
+                    myNewCourse.Updated_at = DateTime.Now;
 
-                var myCourse = await _dbContext!.AddAsync(myNewCourse);
-                await _dbContext.SaveChangesAsync();
-                return "Course allocated";
+                    await _dbContext!.Lecturer_Courses.AddAsync(myNewCourse);
+                    await _dbContext.SaveChangesAsync();
+                    return "Course allocated";
+                }
+                else
+                {
+                    return "Course already allocated";
+                }
             }
             catch (Exception ex)
             {
@@ -61,7 +69,10 @@ namespace QandR_API.Services
         {
             try
             {
-                var myCourse = await _dbContext!.Lecturer_Courses.Where(c => c.Id == id).Include(l => l.Lecturer).Include(c => c.Course).FirstOrDefaultAsync();
+                var myCourse = await _dbContext!.Lecturer_Courses.Where(c => c.Id == id)
+                    .Include(l => l.Lecturer)
+                    .Include(c => c.Course).ThenInclude(lc => lc!.lecturer_Courses)
+                    .SingleOrDefaultAsync();
                 if (myCourse == null)
                 {
                     Console.WriteLine($"{id} not found");
@@ -80,7 +91,11 @@ namespace QandR_API.Services
         {
             try
             {
-                var myCourse = await _dbContext!.Lecturer_Courses.Include(l => l.Lecturer).Include(c => c.Course).OrderBy(c => c.Course).ToListAsync();
+                var myCourse = await _dbContext!.Lecturer_Courses
+                    .Include(l => l.Lecturer)
+                    .Include(c => c.Course)
+                    .OrderBy(c => c.Course)
+                    .ToListAsync();
                 if (myCourse == null)
                 {
                     return null!;

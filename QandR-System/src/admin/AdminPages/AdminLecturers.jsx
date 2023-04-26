@@ -39,7 +39,6 @@ const AdminLecturers = () => {
   const location = useLocation()
   const errRef = useRef()
   const [resError, setResError] = useState(null)
-  const { deleteUser: deleteLecturer, isLoading: delIsLoading, delError, responseData } = useDelete()
   const [filters, setFilters] = useState({
     global: {value: null, matchMode: FilterMatchMode.CONTAINS },
   })
@@ -47,6 +46,7 @@ const AdminLecturers = () => {
   if (data) {
     // console.log(data);
   }
+  const { deleteUser: deleteLecturer, isLoading: delIsLoading, delError, responseData } = useDelete()
 
   //modal
   const [openDeleteModal, setOpenDeleteModal] = useState(false);

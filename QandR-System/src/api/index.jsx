@@ -30,3 +30,18 @@ export const getEventURL = baseUrl + '/event/'
 export const deleteEventURL = baseUrl + '/event/'
 export const updateEventURL = baseUrl + '/event/'
 export const createEventURL = baseUrl + '/event/create'
+export const getQueryEventsURL = baseUrl + '/event/queries/getAll'
+export const getRecommendationEventsURL = baseUrl + '/event/recommendation/getAll'
+export const getStudentQueryEvents = baseUrl + '/event/students/'
+export const getStudentRecommendationEvents = baseUrl + '/event/students/'
+
+
+//courseAllocation routes
+export const getCourseAllocationsURL = baseUrl + '/courseAllocation/getAll'
+export const getCourseAllocationURL = baseUrl + '/courseAllocation/'
+export const deleteCourseAllocationURL = baseUrl + '/courseAllocation/'
+export const updateCourseAllocationURL = baseUrl + '/courseAllocation/'
+export const createCourseAllocationURL = baseUrl + '/courseAllocation/allocateCourse'
+
+//login
+export const loginURL = baseUrl + '/Login'

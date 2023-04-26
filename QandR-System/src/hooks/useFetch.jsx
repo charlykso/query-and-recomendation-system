@@ -22,6 +22,7 @@ const useFetch = (url) => {
                 throw Error('could not fetch the data for the resource')
             }
             }
+            
             return res.json()
         })
         .then((data) => {

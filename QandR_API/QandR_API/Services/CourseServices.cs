@@ -39,7 +39,7 @@ namespace QandR_API.Services
                 var Id = Guid.NewGuid();
                 newCourse.Id = Id.ToString();
                 newCourse.Created_at = DateTime.Now;
-                newCourse.Update_at = DateTime.Now;
+                newCourse.Updated_at = DateTime.Now;
                 newCourse.SearchString = course.Course_code!.ToUpper() + " "
                     + course.Course_title!.ToUpper() + " " + course.Level!.ToString().ToUpper();
 
@@ -62,11 +62,12 @@ namespace QandR_API.Services
         {
             try
             {
-                var course = await _dbContext!.Courses.FindAsync(id);
+                var course = await _dbContext!.Courses.Include(l => l.lecturer_Courses).SingleOrDefaultAsync(c => c.Id == id);
                 if (course == null)
                 {
                     throw new Exception("Course not found");
                 }
+                course.lecturer_Courses!.Clear();
                 _dbContext!.Remove(course);
                 _dbContext.SaveChanges();
 
@@ -84,7 +85,8 @@ namespace QandR_API.Services
             try
             {
                 var course = await _dbContext!.Courses.Where(c => c.Id == id)
-                    .Include(lc => lc.lecturer_Courses)!.ThenInclude(l => l.Lecturer).FirstOrDefaultAsync();
+                    .Include(lc => lc.lecturer_Courses)!.ThenInclude(l => l.Lecturer)
+                    .FirstOrDefaultAsync();
                 if (course == null)
                 {
                     return null!;
@@ -131,7 +133,7 @@ namespace QandR_API.Services
                 course.Course_code = editCourse.Course_code;
                 course.Course_title = editCourse.Course_title;
                 course.Level = editCourse.Level;
-                course.Update_at = DateTime.Now;
+                course.Updated_at = DateTime.Now;
                 course.Unit = editCourse.Unit;
                 course.SearchString = editCourse.Course_code!.ToUpper() + " "
                     + editCourse.Course_title!.ToUpper() + " " + editCourse.Level!.ToString().ToUpper();

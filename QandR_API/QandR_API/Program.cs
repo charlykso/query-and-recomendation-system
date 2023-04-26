@@ -55,6 +55,16 @@ builder.Services.AddScoped<ILogin, LoginServices>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllersWithViews();
 
+//enable CORS
+
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowAllOrigin", options => options.AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+});
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -70,6 +80,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAllOrigin");
 
 app.UseAuthentication();
 

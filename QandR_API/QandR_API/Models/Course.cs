@@ -17,7 +17,7 @@ namespace QandR_API.Models
         [MaxLength(10)]
         public string? Level { get; set; }
         public DateTime? Created_at { get; set; }
-        public DateTime? Update_at { get; set; }
+        public DateTime? Updated_at { get; set; }
         public List<Lecturer_Course>? lecturer_Courses { get; set; }
         public string? SearchString { get; set; }
         public int Unit { get; set; }

@@ -33,7 +33,7 @@ const UpdateLecturers = () => {
   return (
     <Box sx={{ p: 1}}>
         {lecturer && (<Breadcrumb location={location.pathname} />)}
-        {error && <div className='text-red-600'>{error}</div>}
+        {updataError && <div className='text-red-600'>{updataError}</div>}
         {isLoading && (<div className='absolute flex justify-center items-center min-h-full mt-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
                   <CircularProgress />
                 </div>
@@ -70,10 +70,12 @@ const UpdateLecturers = () => {
                         let updateLecturerurl = updateLecturerURL + Id + '/update'
                         await updateLecturer(updateLecturerurl, formData)
                         if (error) {
-                          throw Error(error)
+                          throw new Error(error)
+                        }else{
+                          navigate( - 1)
                         }
-                        navigate( - 1)
                     }catch (error) {
+                      setUpdating(false)
                       setUpdataError(error.message)
                     }
                   }}

@@ -21,12 +21,17 @@ namespace QandR_API.Controllers
         {
             try
             {
-                var myCourse = await _ilecturerCourse!.CreateLecturerCourse(l_course);
-                if (myCourse.ToString() == "Course allocated")
+                if (ModelState.IsValid)
                 {
-                    return Ok(myCourse);
+                    var myCourse = await _ilecturerCourse!.CreateLecturerCourse(l_course);
+                    if (myCourse.ToString() == "Course allocated")
+                    {
+                        return Ok(myCourse);
+                    }
+                    return BadRequest(myCourse);
+
                 }
-                return BadRequest("Not created");
+                return BadRequest("Please fill the required fields");
             }
             catch (Exception ex)
             {

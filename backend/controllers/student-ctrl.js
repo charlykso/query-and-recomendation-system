@@ -15,7 +15,6 @@ const createToken = (student) => {
   )
 }
 
-
 login = async (req, res) => {
   const { email, password } = req.body
 
@@ -25,12 +24,11 @@ login = async (req, res) => {
     //create token
     const token = createToken(student)
 
-    return res.status(200).json({email, token})
+    return res.status(200).json({ email, token })
   } catch (error) {
     return res.status(400).json({ error: error.message })
   }
 }
-
 
 createStudent = async (req, res) => {
   const body = req.body
@@ -41,12 +39,11 @@ createStudent = async (req, res) => {
     //create token
     const token = createToken(student)
 
-    return res.status(201).json({student, token})
+    return res.status(201).json({ student, token })
   } catch (error) {
     return res.status(400).json({ error: error.message })
   }
 }
-
 
 updateStudent = async (req, res) => {
   const body = req.body
@@ -61,7 +58,6 @@ updateStudent = async (req, res) => {
     })
   }
 
-
   const student = await Student.findOneAndUpdate(
     { _id: id },
     {
@@ -75,7 +71,6 @@ updateStudent = async (req, res) => {
   return res.status(200).json(student)
 }
 
-
 deleteStudent = async (req, res) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -87,7 +82,6 @@ deleteStudent = async (req, res) => {
   }
   return res.status(200).json(student)
 }
-
 
 getStudentById = async (req, res) => {
   const { id } = req.params
@@ -116,7 +110,6 @@ getStudents = async (req, res) => {
     return res.status(404).json({ error: error.message })
   }
 }
-
 
 module.exports = {
   createStudent,

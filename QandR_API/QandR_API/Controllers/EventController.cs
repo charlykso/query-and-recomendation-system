@@ -71,6 +71,44 @@ namespace QandR_API.Controllers
             }
         }
 
+        [HttpGet("lecturer/{Id}/queries")]
+        public async Task<ActionResult> getLecturerQueries([FromRoute] string Id)
+        {
+            try
+            {
+                var queryEvent = await _ievent!.getLecturerQueries(Id);
+                if (queryEvent == null)
+                {
+                    return NoContent();
+                }
+                return Ok(queryEvent);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("students/{Id}/queries")]
+        public async Task<ActionResult> getStudentQueries([FromRoute] string Id)
+        {
+            try
+            {
+                var queryEvent = await _ievent!.getStudentQueries(Id);
+                if (queryEvent == null)
+                {
+                    return NoContent();
+                }
+                return Ok(queryEvent);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("recomendation/getAll")]
         public async Task<ActionResult> getRecomendation()
         {
@@ -82,6 +120,44 @@ namespace QandR_API.Controllers
                     return NoContent();
                 }
                 return Ok(recomendEvent);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("lecturer/{Id}/recomendations")]
+        public async Task<ActionResult> getLecturerRecommendations([FromRoute] string Id)
+        {
+            try
+            {
+                var recEvent = await _ievent!.getLecturerRecomendations(Id);
+                if (recEvent == null)
+                {
+                    return NoContent();
+                }
+                return Ok(recEvent);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("students/{Id}/recomendations")]
+        public async Task<ActionResult> getStudentRecommendations([FromRoute] string Id)
+        {
+            try
+            {
+                var queryEvent = await _ievent!.getStudentRecomendations(Id);
+                if (queryEvent == null)
+                {
+                    return NoContent();
+                }
+                return Ok(queryEvent);
             }
             catch (Exception ex)
             {

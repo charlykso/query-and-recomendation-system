@@ -4,6 +4,7 @@ import * as yup from 'yup'
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
 const phoneRules = /^[+][0-9]+$/
 
+// lecturer Schema
 export const CreateUserSchema = yup.object().shape({
     Firstname: yup
         .string()
@@ -90,6 +91,7 @@ export const updateUserSchema = yup.object().shape({
         .required('Required'),
 })
 
+// student Schema
 export const CreateStudentSchema = yup.object().shape({
     Firstname: yup
         .string()
@@ -165,5 +167,108 @@ export const updateStudentSchema = yup.object().shape({
     Role: yup
         .string()
         .oneOf(['User', 'Admin', 'Student', 'Lecturer'], 'Please select a valid option')
+        .required('Required'),
+})
+
+// event Schema
+export const CreateEventSchema = yup.object().shape({
+    Description: yup
+        .string()
+        .min(20, 'Description must be atleast 20 characters long')
+        .required('Required'),
+    StudentId: yup
+        .string()
+        .required('Required'),
+    Course_code: yup
+        .string()
+        .required('Required'),
+    LecturerId: yup
+        .string()
+        .required('Required'),
+    Type: yup
+        .string()
+        .oneOf(['Recomendation', 'Query'], 'Please select a valid option')
+        .required('Required'),
+})
+
+export const UpdateEventSchema = yup.object().shape({
+    Description: yup
+        .string()
+        .min(20, 'Description must be atleast 20 characters long')
+        .required('Required'),
+    StudentId: yup
+        .string()
+        .required('Required'),
+    LecturerId: yup
+        .string()
+        .required('Required'),
+    Type: yup
+        .string()
+        .oneOf(['Recommendation', 'Query'], 'Please select a valid option')
+        .required('Required'),
+    Course_code: yup
+        .string()
+        .required('Required'),
+})
+
+// course Schema
+export const UpdateCourseSchema = yup.object().shape({
+    Course_title: yup
+        .string()
+        .min(20, 'Description must be atleast 20 characters long')
+        .required('Required'),
+    Unit: yup
+        .number()
+        .required('Required'),
+    Level: yup
+        .string()
+        .oneOf(['100', '200', '300', '400'], 'Please select a valid option')
+        .required('Required'),
+    Course_code: yup
+        .string()
+        .required('Required'),
+})
+
+export const CreateCourseSchema = yup.object().shape({
+    Course_title: yup
+        .string()
+        .min(20, 'Description must be atleast 20 characters long')
+        .required('Required'),
+    Unit: yup
+        .number()
+        .required('Required'),
+    Level: yup
+        .string()
+        .oneOf(['100', '200', '300', '400'], 'Please select a valid option')
+        .required('Required'),
+    Course_code: yup
+        .string()
+        .required('Required'),
+})
+
+//course allocation
+export const CreateCourseAllocationSchema = yup.object().shape({
+    Course_title: yup
+        .string()
+        .min(20, 'Description must be atleast 20 characters long')
+        .required('Required'),
+    Unit: yup
+        .number()
+        .required('Required'),
+    Level: yup
+        .string()
+        .oneOf(['100', '200', '300', '400'], 'Please select a valid option')
+        .required('Required'),
+    Course_code: yup
+        .string()
+        .required('Required'),
+})
+
+export const UpdateCourseAllocationSchema = yup.object().shape({
+    CourseId: yup
+        .string()
+        .required('Required'),
+    LecturerId: yup
+        .array()
         .required('Required'),
 })

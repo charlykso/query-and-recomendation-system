@@ -35,12 +35,12 @@ const style = {
 };
 
 const AdminStudents = () => {
-    const { data, isLoading, error} = useFetch(getStudentsURL)
     const navigate = useNavigate()
     const location = useLocation()
     const errRef = useRef()
     const [resError, setResError] = useState(null)
     const { deleteUser: deleteAStudent, isLoading: delIsLoading, delError, responseData } = useDelete()
+    const { data, isLoading, error} = useFetch(getStudentsURL)
     const [filters, setFilters] = useState({
       global: {value: null, matchMode: FilterMatchMode.CONTAINS },
     })
@@ -112,6 +112,7 @@ const AdminStudents = () => {
           >
             <TextField id="outlined-basic" label="Search" variant="outlined" />
           </Box>
+          {error && <div className='text-red-500'>{error}</div>}
           {resError && <div className='text-red-500'>{resError}</div>}
           {isLoading && (<div className='absolute flex justify-center items-center min-h-full mt-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
                   <CircularProgress />

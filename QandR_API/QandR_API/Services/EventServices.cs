@@ -133,11 +133,87 @@ namespace QandR_API.Services
                     .Include(l => l.Lecturer)
                     .Include(s => s.Student)
                     .ToListAsync();
-                if (eves == null)
+                if (eves.Count == 0)
                 {
                     return null!;
                 }
                 return eves;
+            }
+            catch (Exception)
+            {
+
+                return null!;
+            }
+        }
+
+        public async Task<IEnumerable<Event>> getLecturerQueries(string id)
+        {
+            try
+            {
+                var queries = await _dbContext!.Events.Where(e => e.Type == "Query" && e.LecturerId == id)
+                    .ToListAsync();
+                if (queries == null)
+                {
+                    return null!;
+                }
+                return queries;
+            }
+            catch (Exception)
+            {
+
+                return null!;
+            }
+        }
+
+        public async Task<IEnumerable<Event>> getLecturerRecomendations(string id)
+        {
+            try
+            {
+                var recom = await _dbContext!.Events.Where(e => e.Type == "Recommendation" && e.LecturerId == id)
+                    .ToListAsync();
+                if (recom.Count == 0)
+                {
+                    return null!;
+                }
+                return recom;
+            }
+            catch (Exception)
+            {
+
+                return null!;
+            }
+        }
+
+        public async Task<IEnumerable<Event>> getStudentQueries(string id)
+        {
+            try
+            {
+                var queries = await _dbContext!.Events.Where(e => e.Type == "Query" && e.StudentId == id)
+                    .ToListAsync();
+                if (queries.Count == 0)
+                {
+                    return null!;
+                }
+                return queries;
+            }
+            catch (Exception)
+            {
+
+                return null!;
+            }
+        }
+
+        public async Task<IEnumerable<Event>> getStudentRecomendations(string id)
+        {
+            try
+            {
+                var recom = await _dbContext!.Events.Where(e => e.StudentId == id && e.Type == "Recommendation")
+                    .ToListAsync();
+                if (recom.Count == 0)
+                {
+                    return null!;
+                }
+                return recom;
             }
             catch (Exception)
             {

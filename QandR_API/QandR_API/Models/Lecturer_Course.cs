@@ -6,9 +6,11 @@ namespace QandR_API.Models
     {
         public string? Id { get; set; }
 
+        [Required]
         public string? LecturerId { get; set; }
         public Lecturer? Lecturer { get; set; }
 
+        [Required]
         public string? CourseId { get; set; }
         public Course? Course { get; set; }
         public DateTime? Created_at { get; set; }

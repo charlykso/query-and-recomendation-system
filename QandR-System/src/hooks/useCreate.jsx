@@ -18,7 +18,7 @@ const useCreate = () => {
         })
         try {
         const data = await response.text()
-        console.log(data);
+        // console.log(data);
         if (!response.ok) {
             setIsLoading(false)
             if (response.status === 401) {
@@ -34,7 +34,7 @@ const useCreate = () => {
         setError(error.message)
         }
     }
-
+    // console.log(Error);
     return { createUser, isLoading, Error, responseData }
 }
 

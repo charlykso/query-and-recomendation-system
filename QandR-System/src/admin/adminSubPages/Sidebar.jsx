@@ -34,6 +34,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip'
+import BallotIcon from '@mui/icons-material/Ballot';
+import useLogout from '../../hooks/useLogout';
 
 const drawerWidth = 240;
 
@@ -106,6 +108,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const Sidebar = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const [value, setValue] = useState(0);
+    const { logout } = useLogout()
     const openMenu = Boolean(anchorEl)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -124,6 +127,10 @@ const Sidebar = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLogout = () => {
+    logout()
+  }
 
 
   return (
@@ -144,10 +151,10 @@ const Sidebar = () => {
                 <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>
-                Admin Q && R system
+                Admin Q & R system
             </Typography>
             <Stack spacing={2} direction='row'>
-                <Button color='inherit'>Logout</Button>
+                <Button color='inherit' onClick={handleLogout}>Logout</Button>
             </Stack>
           </Toolbar>
         </AppBar>
@@ -315,6 +322,37 @@ const Sidebar = () => {
                 </ListItemButton>
               </Link>
             </ListItem>
+            <ListItem key='CourseAllocations' disablePadding sx={{ display: 'block' }}>
+              <Link to='/admin/courseAllocations'>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                  id='CourseAllocation-button'
+                  onClick={handleClick}
+                  aria-controls={openMenu ? 'CourseAllocation-menu' : undefined}
+                  aria-haspopup='true'
+                  aria-expanded={openMenu ? 'true' : undefined}
+                >
+                  
+          
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Tooltip title="CourseAllocations" arrow>
+                      <BallotIcon />
+                    </Tooltip>
+                    </ListItemIcon>
+                    <ListItemText primary='CourseAllocations' sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>
+          </ListItem>
         </List>
         <Divider />
         <List>
