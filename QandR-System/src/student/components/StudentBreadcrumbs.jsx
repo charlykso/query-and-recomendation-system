@@ -67,11 +67,11 @@ const StudentBreadcrumbs = ({location}) => {
               sx={{ display: 'flex', alignItems: 'center' }}
               color="inherit"
               href="/students/Event/create"
-              ><Button variant="contained">+ Create-Event</Button>
+              ><Button variant="contained" sx={{backgroundColor: '#0B773E'}}>+ Create-Event</Button>
               </Link>
               }
             
-            {button == -1 && (<Button variant='contained' onClick={handleGoBack} >Go Back</Button>)}
+            {button == -1 && (<Button variant='contained' onClick={handleGoBack} sx={{backgroundColor: '#0B773E'}} >Go Back</Button>)}
         </Grid>
       </Grid>
     </Box>

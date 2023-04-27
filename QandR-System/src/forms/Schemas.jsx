@@ -174,10 +174,7 @@ export const updateStudentSchema = yup.object().shape({
 export const CreateEventSchema = yup.object().shape({
     Description: yup
         .string()
-        .min(20, 'Description must be atleast 20 characters long')
-        .required('Required'),
-    StudentId: yup
-        .string()
+        .min(10, 'Description must be atleast 10 characters long')
         .required('Required'),
     Course_code: yup
         .string()
@@ -187,17 +184,14 @@ export const CreateEventSchema = yup.object().shape({
         .required('Required'),
     Type: yup
         .string()
-        .oneOf(['Recomendation', 'Query'], 'Please select a valid option')
+        .oneOf(['Recommendation', 'Query'], 'Please select a valid option')
         .required('Required'),
 })
 
 export const UpdateEventSchema = yup.object().shape({
     Description: yup
         .string()
-        .min(20, 'Description must be atleast 20 characters long')
-        .required('Required'),
-    StudentId: yup
-        .string()
+        .min(10, 'Description must be atleast 10 characters long')
         .required('Required'),
     LecturerId: yup
         .string()

@@ -11,11 +11,11 @@ import Breadcrumb from '../adminSubPages/Breadcrumb';
 import useCreate from '../../hooks/useCreate';
 
 const AdminCreateCourse = () => {
-  const location = useLocation();
-  const navigate = useNavigate()
   const [creatingCourse, setCreatingCourse] = useState(null)
   const [createError, setCreateError] = useState(null)
   const { createUser: createCourse, Error, responseData, isLoading} = useCreate();
+  const location = useLocation();
+  const navigate = useNavigate()
 
   const successMsg = (resData) => {
     return <div className='text-green-500'>{resData}</div>

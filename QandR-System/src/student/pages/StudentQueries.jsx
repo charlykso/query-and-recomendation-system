@@ -6,9 +6,10 @@ import { FilterMatchMode } from 'primereact/api'
 import {DataTable} from 'primereact/datatable'
 import { Column } from 'primereact/column';
 import useFetch from '../../hooks/useFetch'
-import { getStudentQueryEvents } from '../../api'
+import { getStudentQueryEvents } from '../../api';
 import StudentBreadcrumbs from '../components/StudentBreadcrumbs';
 import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
 const StudentQueries = () => {
     const location = useLocation()
@@ -18,26 +19,39 @@ const StudentQueries = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const url = getStudentQueryEvents + user.Id + '/queries'
     const { data, isLoading, error} = useFetch(url)
+    if (data) {
+      console.log(data);
+      
+    }
+    const LecDetails = (data) => {
+        return data.Lecturer.Title+ ' ' +data.Lecturer.Lastname
+    }
+    
   return (
     <Box sx={{ p: 1}}>
       <StudentBreadcrumbs location={location.pathname} />
-        <Box
-            component="form"
-            sx={{
-            '& > :not(style)': {width: '100%', mt: 1, mb: 1 },
-            }}
-            noValidate
-            autoComplete="off"
-            onInput={(e) => 
-            setFilters({
-            global: {value: e.target.value, matchMode: FilterMatchMode.CONTAINS},
-            })
-            } 
-        >
-            <TextField id="outlined-basic" label="Search" variant="outlined" />
-        </Box>
+      
+      <Box
+          component="form"
+          sx={{
+          '& > :not(style)': {width: '100%', mt: 1, mb: 1 },
+          }}
+          noValidate
+          autoComplete="off"
+          onInput={(e) => 
+          setFilters({
+          global: {value: e.target.value, matchMode: FilterMatchMode.CONTAINS},
+          })
+          } 
+      >
+          <TextField id="outlined-basic" label="Search" variant="outlined" />
+      </Box>
+      <Typography variant='h4' sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        My Queries
+      </Typography>
         {error && <div className='text-red-500'>{error}</div>}
-          {isLoading && (<div className='absolute flex justify-center items-center min-h-full mt-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
+          {isLoading && (
+                <div className='absolute flex justify-center items-center min-h-full mt-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
                   <CircularProgress />
                 </div>
           )}
@@ -45,6 +59,7 @@ const StudentQueries = () => {
           <DataTable value={data} filters={filters} paginator scrollable rows={5} rowsPerPageOptions={[5, 10, 15]} totalRecords={data.length}>
             <Column field='Course_code' header='Course code' sortable />
             <Column field='Description' header='Description' sortable/>
+            <Column body={LecDetails} header='Lecturer' sortable/>
             <Column field='Created_at' header='Date Created' sortable />
           </DataTable>}
     </Box>

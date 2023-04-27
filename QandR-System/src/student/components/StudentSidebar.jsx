@@ -134,7 +134,7 @@ const StudentSidebar = () => {
   return (
     <>
         {/* <CssBaseline /> */}
-        <AppBar position="fixed" open={open}>
+        <AppBar position="fixed" open={open} sx={{backgroundColor: '#0B773E'}}>
           <Toolbar>
             <IconButton
                 color="inherit"

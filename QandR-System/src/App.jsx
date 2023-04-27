@@ -25,6 +25,7 @@ import LecturerRecomendations from './lecturer/lecturerPages/LecturerRecomendati
 import StudentHomePage from './student/components/StudentHomePage';
 import StudentQueries from './student/pages/StudentQueries';
 import StudentRecomendations from './student/pages/StudentRecomendations';
+import StudentCreateEvent from './student/pages/StudentCreateEvent';
 
 
 function App() {
@@ -65,7 +66,7 @@ function App() {
           <Route path='/' element={<StudentHomePage />} />
           <Route path='/student/events/queries' element={<StudentQueries />} />
           <Route path='/student/events/recommendations' element={<StudentRecomendations />} />
-          <Route path='/student/events/create' />
+          <Route path='/students/event/create' element={<StudentCreateEvent />} />
           <Route path='/students/:Id/events' />
         </Route>
         <Route path='/lecturer' element={<LecturerLandingPage />}>

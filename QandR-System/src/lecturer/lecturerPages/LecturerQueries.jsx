@@ -8,6 +8,8 @@ import { FilterMatchMode } from 'primereact/api'
 import {DataTable} from 'primereact/datatable'
 import { Column } from 'primereact/column';
 import useFetch from '../../hooks/useFetch'
+import Typography from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const LecturerQueries = () => {
     const location = useLocation()
@@ -52,6 +54,15 @@ const LecturerQueries = () => {
         >
             <TextField id="outlined-basic" label="Search" variant="outlined" />
         </Box>
+        <Typography variant='h4' sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          My Queries
+        </Typography>
+        {error && <div className='text-red-500'>{error}</div>}
+        {isLoading && (
+              <div className='absolute flex justify-center items-center min-h-full mt-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
+                <CircularProgress />
+              </div>
+        )}
         {listQueries && 
           <DataTable value={listQueries} filters={filters} paginator scrollable rows={5} rowsPerPageOptions={[5, 10, 15]} totalRecords={listQueries.length}>
             <Column field='Course_code' header='Course code' />

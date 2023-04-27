@@ -189,6 +189,7 @@ namespace QandR_API.Services
             try
             {
                 var queries = await _dbContext!.Events.Where(e => e.Type == "Query" && e.StudentId == id)
+                    .Include(l => l.Lecturer)
                     .ToListAsync();
                 if (queries.Count == 0)
                 {
@@ -208,6 +209,7 @@ namespace QandR_API.Services
             try
             {
                 var recom = await _dbContext!.Events.Where(e => e.StudentId == id && e.Type == "Recommendation")
+                    .Include(l => l.Lecturer)
                     .ToListAsync();
                 if (recom.Count == 0)
                 {
