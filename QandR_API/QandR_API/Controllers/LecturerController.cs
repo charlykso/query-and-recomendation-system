@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using QandR_API.DTO;
 using QandR_API.Repo;
-using System.Data;
 
 namespace QandR_API.Controllers
 {

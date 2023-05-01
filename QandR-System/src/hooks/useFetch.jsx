@@ -13,14 +13,16 @@ const useFetch = (url, jwt) => {
         })
         .then((res) => {
             if (!res.ok) {
-            if (res.status === 401) {
-                throw Error('Unauthorised')
-            }else if(res.status === 404) {
-                throw Error('Not found')
-            }
-            else {
-                throw Error('could not fetch the data for the resource')
-            }
+                if (res.status === 401) {
+                    throw Error('Unauthorised')
+                }else if(res.status === 404) {
+                    throw Error('Not found')
+                }
+                else {
+                    throw Error('could not fetch the data for the resource')
+                }
+            }else if(res.status === 204) {
+                throw Error('Not content')
             }
             
             return res.json()

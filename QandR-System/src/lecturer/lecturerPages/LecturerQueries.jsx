@@ -52,7 +52,7 @@ const LecturerQueries = () => {
             setFilters({
             global: {value: e.target.value, matchMode: FilterMatchMode.CONTAINS},
             })
-            } 
+            }
         >
             <TextField id="outlined-basic" label="Search" variant="outlined" />
         </Box>

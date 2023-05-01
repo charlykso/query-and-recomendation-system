@@ -27,6 +27,7 @@ import StudentQueries from './student/pages/StudentQueries';
 import StudentRecomendations from './student/pages/StudentRecomendations';
 import StudentCreateEvent from './student/pages/StudentCreateEvent';
 import { useAuthContext } from './hooks/useAuthContex';
+import NotFound from './auth/NotFound';
 
 
 function App() {
@@ -38,44 +39,45 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/admin' element={ <AdminLandingPage /> }>
-          <Route path='/admin' element={user ? <AdminHome /> : <LoginPage />} />
+          <Route path='/admin' element={user && user.Role === 'Admin'  ? <AdminHome /> : <LoginPage />} />
 
           {/* course */}
-          <Route path='courses' element={user ? <AdminCourses /> : <LoginPage />}/>
-          <Route path='courses/:Id/update' element={user ? <UpdateCourse /> : <LoginPage />}/>
-          <Route path='courses/create' element={user ?<AdminCreateCourse /> : <LoginPage />}/>
+          <Route path='courses' element={user && user.Role === 'Admin' ? <AdminCourses /> : <LoginPage />}/>
+          <Route path='courses/:Id/update' element={user && user.Role === 'Admin' ? <UpdateCourse /> : <LoginPage />}/>
+          <Route path='courses/create' element={user && user.Role === 'Admin' ?<AdminCreateCourse /> : <LoginPage />}/>
 
           {/* event */}
-          <Route path='events' element={user ?<AdminEvents /> : <LoginPage />} />
-          <Route path='events/:Id/update' element={user ?<UpdateEvent /> : <LoginPage />} />
+          <Route path='events' element={user && user.Role === 'Admin' ?<AdminEvents /> : <LoginPage />} />
+          <Route path='events/:Id/update' element={user && user.Role === 'Admin' ? <UpdateEvent /> : <LoginPage />} />
 
           {/* student */}
-          <Route path='students' element={user ?<AdminStudents /> : <LoginPage />}/>
-          <Route path='students/:Id/update' element={user ?<UpdateStudent /> : <LoginPage />}/>
-          <Route path='students/create' element={user ?<AdminCreateStudent /> : <LoginPage />}/>
+          <Route path='students' element={user && user.Role === 'Admin' ? <AdminStudents /> : <LoginPage />}/>
+          <Route path='students/:Id/update' element={user && user.Role === 'Admin' ? <UpdateStudent /> : <LoginPage />}/>
+          <Route path='students/create' element={user && user.Role === 'Admin' ? <AdminCreateStudent /> : <LoginPage />}/>
 
           {/* //lecturer */}
-          <Route path='lecturers' element={user ?<AdminLecturers /> : <LoginPage />}/>
-          <Route path='lecturer/:Id/update' element={user ?<UpdateLecturers /> : <LoginPage />}/>
-          <Route path='lecturers/create' element={user ?<CreateLecturer /> : <LoginPage />} />
+          <Route path='lecturers' element={user && user.Role === 'Admin' ? <AdminLecturers /> : <LoginPage />}/>
+          <Route path='lecturer/:Id/update' element={user && user.Role === 'Admin' ? <UpdateLecturers /> : <LoginPage />}/>
+          <Route path='lecturers/create' element={user && user.Role === 'Admin' ? <CreateLecturer /> : <LoginPage />} />
 
           {/* course allocation */}
-          <Route path='courseAllocations' element={user ?<AdminCourseAllocation /> : <LoginPage />}/>
-          <Route path='courseAllocations/:Id/update/:CourseId' element={user ?<UpdateCourseAllocation /> : <LoginPage />} />
-          <Route path='courseAllocations/create' element={user ?<AdminCreateCourseAllocation /> : <LoginPage />}/>
+          <Route path='courseAllocations' element={user && user.Role === 'Admin' ? <AdminCourseAllocation /> : <LoginPage />}/>
+          <Route path='courseAllocations/:Id/update/:CourseId' element={user && user.Role === 'Admin' ? <UpdateCourseAllocation /> : <LoginPage />} />
+          <Route path='courseAllocations/create' element={user && user.Role === 'Admin' ? <AdminCreateCourseAllocation /> : <LoginPage />}/>
         </Route>
         <Route path='/' element={<StudentLandingPage />}>
-          <Route path='/' element={user ? <StudentHomePage />: <LoginPage />} />
-          <Route path='/student/events/queries' element={user ? <StudentQueries />: <LoginPage />} />
-          <Route path='/student/events/recommendations' element={user ? <StudentRecomendations />: <LoginPage />} />
-          <Route path='/students/event/create' element={user ? <StudentCreateEvent />: <LoginPage />} />
+          <Route path='/' element={user && (user.Role === 'User' || user.Role === 'Student') ? <StudentHomePage />: <LoginPage />} />
+          <Route path='/student/events/queries' element={user && (user.Role === 'User' || user.Role === 'Student') ? <StudentQueries />: <LoginPage />} />
+          <Route path='/student/events/recommendations' element={user && (user.Role === 'User' || user.Role === 'Student') ? <StudentRecomendations />: <LoginPage />} />
+          <Route path='/students/event/create' element={user && (user.Role === 'User' || user.Role === 'Student') ? <StudentCreateEvent />: <LoginPage />} />
           <Route path='/students/:Id/events' />
         </Route>
         <Route path='/lecturer' element={<LecturerLandingPage />}>
-          <Route path='/lecturer' element={user ? <LecturerHomePage /> : <LoginPage />} />
-          <Route path='/lecturer/events/queries' element={user ? <LecturerQueries /> : <LoginPage />} />
-          <Route path='/lecturer/events/recommendations' element={user ? <LecturerRecomendations /> : <LoginPage />} />
+          <Route path='/lecturer' element={user && user.Role === 'Lecturer' ? <LecturerHomePage /> : <LoginPage />} />
+          <Route path='/lecturer/events/queries' element={user && user.Role === 'Lecturer' ? <LecturerQueries /> : <LoginPage />} />
+          <Route path='/lecturer/events/recommendations' element={user && user.Role === 'Lecturer' ? <LecturerRecomendations /> : <LoginPage />} />
         </Route>
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   )
