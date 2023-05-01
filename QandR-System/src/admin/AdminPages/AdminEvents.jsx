@@ -9,8 +9,6 @@ import Breadcrumb from '../adminSubPages/Breadcrumb';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Link from '@mui/material/Link'
-import EditIcon from '@mui/icons-material/Edit';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button'
@@ -38,11 +36,14 @@ const AdminEvents = () => {
   const location = useLocation()
   const errRef = useRef()
   const [resError, setResError] = useState(null)
-  const { deleteUser: deleteEvent, isLoading: delIsLoading, delError, responseData } = useDelete()
   const [filters, setFilters] = useState({
     global: {value: null, matchMode: FilterMatchMode.CONTAINS },
   })
-  const { data, isLoading, error} = useFetch(getEventsURL)
+  const user = JSON.parse(localStorage.getItem('user'))
+  const Alltoken = JSON.parse(user.Token)
+  const token = Alltoken.token
+  const { deleteUser: deleteEvent, isLoading: delIsLoading, delError, responseData } = useDelete()
+  const { data, isLoading, error} = useFetch(getEventsURL, token)
   if (data) {
     // console.log(data);
   }
@@ -60,7 +61,7 @@ const AdminEvents = () => {
     // console.log(url);
   
     try {
-      await deleteEvent(url)
+      await deleteEvent(url, token)
       if (delError) {
         setResError(delError)
       }else{
@@ -78,7 +79,7 @@ const AdminEvents = () => {
               setEvent_Id(data.Id);}} startIcon={<DeleteIcon />}>
               Delete
             </Button>
-            <Link
+            {/* <Link
                 underline="none"
                 sx={{ display: 'flex', alignItems: 'center' }}
                 color="inherit"
@@ -87,7 +88,7 @@ const AdminEvents = () => {
               <Button variant="contained" endIcon={<EditIcon />}>
                 Edit
               </Button>
-            </Link>
+            </Link> */}
           </Stack>
   }
 
@@ -110,6 +111,10 @@ const AdminEvents = () => {
           >
             <TextField id="outlined-basic" label="Search" variant="outlined" />
           </Box>
+          <Typography variant='h4' sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Events
+          </Typography>
+          {error && <div className='text-red-500'>{error}</div>}
           {resError && <div className='text-red-500'>{resError}</div>}
           {isLoading && (<div className='absolute flex justify-center items-center min-h-full mt-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
                   <CircularProgress />

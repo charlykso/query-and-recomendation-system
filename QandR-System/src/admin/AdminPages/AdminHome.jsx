@@ -7,6 +7,8 @@ import SchoolIcon from '@mui/icons-material/School';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import EventIcon from '@mui/icons-material/Event';
 import Typography from '@mui/material/Typography'
+import useFetch from '../../hooks/useFetch';
+import { getStudentsURL, getLecturersURL, getCoursesURL, getEventsURL } from '../../api';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -27,6 +29,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const AdminHome = () => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  const Alltoken = JSON.parse(user.Token)
+  const token = Alltoken.token
+
+  const { data: students, isLoading: studentsLoading, error: studentsError} = useFetch(getStudentsURL, token)
+  const {data: lecturers, isLoading: lecturersLoading, error: lecturersError} = useFetch(getLecturersURL, token)
+  const {data: courses, isLoading: coursesLoading, error: coursesError} = useFetch(getCoursesURL, token)
+  const {data: events, isLoading: eventsLoading, error: eventsError} = useFetch(getEventsURL, token)
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 2, md: 12 }}>
             <Grid item xs={6}>
@@ -36,7 +46,10 @@ const AdminHome = () => {
                   bgcolor: 'background.gray',
                 }}
                 >
-                <Item>100
+                <Item>
+                  {studentsLoading && 'Loading ...'}
+                  {students && students.length}
+                  {studentsError && studentsError}
                   
                 <Typography variant='h4' >
                   <People sx={{ fontSize: 50 }}/> Students
@@ -51,7 +64,10 @@ const AdminHome = () => {
                   bgcolor: 'background.gray',
                 }}
                 >
-                <Item>10
+                <Item>
+                  {lecturersLoading && 'Loading ...'}
+                  {lecturers && lecturers.length}
+                  {lecturersError && lecturersError}
                   <Typography variant='h4' >
                   <SchoolIcon sx={{ fontSize: 50}} /> Lecturers
                 </Typography>
@@ -65,7 +81,10 @@ const AdminHome = () => {
                   bgcolor: 'background.gray',
                 }}
                 >
-                <Item>62
+                <Item>
+                  {coursesLoading && 'Loading ...'}
+                  {courses && courses.length}
+                  {coursesError && coursesError}
                   <Typography variant='h4' >
                   <LibraryBooksIcon sx={{fontSize: 50}}/> Courses
                 </Typography>
@@ -79,7 +98,10 @@ const AdminHome = () => {
                   bgcolor: 'background.gray',
                 }}
                 >
-                <Item>5
+                <Item>
+                  {eventsLoading && 'Loading ...'}
+                  {events && events.length}
+                  {eventsError && eventsError}
                   <Typography variant='h4' >
                   <EventIcon sx={{fontSize: 50}}/> Events
                 </Typography>

@@ -25,7 +25,10 @@ const UpdateStudent = () => {
     const updateStudenturl =  updateStudentURL + Id + '/update'
     // console.log(updateLecturerurl);
     const getStudenturl = getStudentURL + Id + '/get'
-    const { data: student, isLoading, error} = useFetch(getStudenturl)
+    const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data: student, isLoading, error} = useFetch(getStudenturl, token)
     const { updateUser: updateStudent, isLoading: updateIsLoading, updateError, responseData} = useUpdate()
     if (student) {
     //   var courses = lecturer.Lecturer_Courses
@@ -66,7 +69,7 @@ const UpdateStudent = () => {
 
                     try{
                         let updateStudenturl = updateStudentURL + Id + '/update'
-                        await updateStudent(updateStudenturl, formData)
+                        await updateStudent(updateStudenturl, formData, token)
                         if (error) {
                           throw Error(error)
                         }

@@ -5,14 +5,14 @@ const useUpdate = () => {
     const [isLoading, setIsLoading] = useState(null)
     const [responseData, setResponseData] = useState(null)
 
-    const updateUser = async (url, formData) => {
+    const updateUser = async (url, formData, jwt) => {
         setIsLoading(true)
         setUpdateError(null)
 
         const response = await fetch(url, {
         method: 'put',
         headers: {
-            // Authorization: 'Bearer ' + jwt,
+            Authorization: 'Bearer ' + jwt,
         },
         body: formData,
         })

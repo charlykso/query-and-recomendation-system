@@ -37,11 +37,14 @@ const AdminCourseAllocation = () => {
   const location = useLocation()
   const errRef = useRef()
   const [resError, setResError] = useState(null)
-  const { deleteUser: deleteCourseAllocation, isLoading: delIsLoading, delError, responseData } = useDelete()
   const [filters, setFilters] = useState({
     global: {value: null, matchMode: FilterMatchMode.CONTAINS },
   })
-  const { data, isLoading, error} = useFetch(getCourseAllocationsURL)
+  const user = JSON.parse(localStorage.getItem('user'))
+  const Alltoken = JSON.parse(user.Token)
+  const token = Alltoken.token
+  const { deleteUser: deleteCourseAllocation, isLoading: delIsLoading, delError, responseData } = useDelete()
+  const { data, isLoading, error} = useFetch(getCourseAllocationsURL, token)
   if (data) {
     // console.log(data);
   }
@@ -59,7 +62,7 @@ const AdminCourseAllocation = () => {
     console.log(url);
   
     try {
-      await deleteCourse(url)
+      await deleteCourseAllocation(url, token)
       if (delError) {
         setResError(delError)
       }else{
@@ -109,6 +112,10 @@ const CourseAction = (data) => {
           >
             <TextField id="outlined-basic" label="Search" variant="outlined" />
           </Box>
+          <Typography variant='h4' sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            Course allocation
+          </Typography>
+          {error && <div className='text-red-500'>{error}</div>}
           {resError && <div className='text-red-500'>{resError}</div>}
           {isLoading && (<div className='absolute flex justify-center items-center min-h-full mt-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
                   <CircularProgress />

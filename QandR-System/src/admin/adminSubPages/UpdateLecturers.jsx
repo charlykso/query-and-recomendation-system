@@ -22,10 +22,13 @@ const UpdateLecturers = () => {
     const navigate = useNavigate()
     const [updating, setUpdating] = useState(null)
     const [updataError, setUpdataError] = useState(null)
-    const updateLecturerurl =  updateLecturerURL + Id + '/update'
+    // const updateLecturerurl =  updateLecturerURL + Id + '/update'
     // console.log(updateLecturerurl);
     const getLecturerurl = getLecturerURL + Id + '/get'
-    const { data: lecturer, isLoading, error} = useFetch(getLecturerurl)
+    const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data: lecturer, isLoading, error} = useFetch(getLecturerurl, token)
     const { updateUser: updateLecturer, isLoading: updateIsLoading, updateError, responseData} = useUpdate()
     if (lecturer) {
       var courses = lecturer.Lecturer_Courses
@@ -54,7 +57,7 @@ const UpdateLecturers = () => {
                   validationSchema={updateUserSchema}
                   onSubmit={ async (values, actions) => {
                     setUpdating(true)
-                    console.log(values);
+                    // console.log(values);
 
                     let formData = new FormData()
                     formData.append('Title', values.Title)
@@ -68,7 +71,7 @@ const UpdateLecturers = () => {
 
                     try{
                         let updateLecturerurl = updateLecturerURL + Id + '/update'
-                        await updateLecturer(updateLecturerurl, formData)
+                        await updateLecturer(updateLecturerurl, formData, token)
                         if (error) {
                           throw new Error(error)
                         }else{

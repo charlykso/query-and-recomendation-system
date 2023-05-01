@@ -16,9 +16,12 @@ const StudentCreateEvent = () => {
     const [creatingEvent, setCreatingEvent] = useState(null)
     const [createError, setCreateError] = useState(null)
     const { createUser: createEvent, Error, responseData, isLoading} = useCreate();
-    const { data: courseData, isLoading: courseLoading, error: courseError } = useFetch(getCoursesURL);
-    const { data: lecturerData, isLoading: lecturerLoading, error: lecturerError } = useFetch(getLecturersURL);
     const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data: courseData, isLoading: courseLoading, error: courseError } = useFetch(getCoursesURL, token);
+    const { data: lecturerData, isLoading: lecturerLoading, error: lecturerError } = useFetch(getLecturersURL, token);
+    // const user = JSON.parse(localStorage.getItem('user'))
     const StudentId = user.Id
     const location = useLocation();
     const navigate = useNavigate()
@@ -55,7 +58,7 @@ const StudentCreateEvent = () => {
                     formData.append('StudentId', StudentId)
 
                     try{
-                      await createEvent(createEventURL, formData)
+                      await createEvent(createEventURL, formData, token)
                       if (Error) {
                         // console.log(Error);
                         throw new Error(Error)

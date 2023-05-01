@@ -18,23 +18,25 @@ const LecturerRecomendations = () => {
     global: {value: null, matchMode: FilterMatchMode.CONTAINS },
         })
     const user = JSON.parse(localStorage.getItem('user'))
-    const { data, isLoading, error} = useFetch(getRecommendationEventsURL)
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data, isLoading, error} = useFetch(getRecommendationEventsURL, token)
     if (user) {
-        console.log(user);
+        // console.log(user);
     }
   if (data) {
     console.log(data);
     data.map((da) => 
     {
-            console.log(da.LecturerId);
+            // console.log(da.LecturerId);
             if (da.LecturerId === user.Id) {
-            console.log(da);
+            // console.log(da);
             listRecs.push(da)
         }}
     )
   }
   if (listRecs) {
-      console.log(listRecs);
+      // console.log(listRecs);
   }
   return (
     <Box sx={{ p: 1}}>

@@ -5,14 +5,14 @@ export const useDelete = () => {
     const [isLoading, setIsLoading] = useState(null)
     const [responseData, setResponseData] = useState(null)
 
-    const deleteUser = async (url) => {
+    const deleteUser = async (url, jwt) => {
         setIsLoading(true)
         setDelError(null)
 
         const response = await fetch(url, {
         method: 'DELETE',
         headers: {
-            // Authorization: 'Bearer ' + jwt,
+            Authorization: 'Bearer ' + jwt,
         },
         })
         try {

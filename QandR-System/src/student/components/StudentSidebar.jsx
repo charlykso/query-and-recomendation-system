@@ -5,7 +5,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -16,11 +15,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import People from '@mui/icons-material/People';
 import Dashboard from '@mui/icons-material/Dashboard';
-import SchoolIcon from '@mui/icons-material/School';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import EventIcon from '@mui/icons-material/Event';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import {useState} from 'react';
@@ -34,8 +29,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip'
-import BallotIcon from '@mui/icons-material/Ballot';
 import useLogout from '../../hooks/useLogout';
+import { useAuthContext } from '../../hooks/useAuthContex';
 
 const drawerWidth = 240;
 
@@ -108,6 +103,7 @@ const StudentSidebar = () => {
 
     const [anchorEl, setAnchorEl] = useState(null)
     const [value, setValue] = useState(0);
+    const { user } = useAuthContext()
     const { logout } = useLogout()
     const openMenu = Boolean(anchorEl)
     const handleClick = (event) => {
@@ -151,9 +147,10 @@ const StudentSidebar = () => {
             <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>
                 Student Q & R system
             </Typography>
+            { user &&
             <Stack spacing={2} direction='row'>
                 <Button color='inherit' onClick={handleLogout}>Logout</Button>
-            </Stack>
+            </Stack>}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>

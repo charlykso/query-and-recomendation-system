@@ -15,6 +15,9 @@ const AdminCreateStudent = () => {
     const navigate = useNavigate()
     const [creatingStudent, setCreatingStudent] = useState(null)
     const [createError, setCreateError] = useState(null)
+    const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
     const { createUser: createStudent, Error, responseData, isLoading} = useCreate();
 
     const successMsg = (resData) => {
@@ -57,7 +60,7 @@ const AdminCreateStudent = () => {
 
                     try{
                       // console.log(createLecturerURL);
-                      await createStudent(createStudentURL, formData)
+                      await createStudent(createStudentURL, formData, token)
                       if (Error) {
                         console.log(Error);
                         throw new Error(Error)

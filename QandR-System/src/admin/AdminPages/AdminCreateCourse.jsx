@@ -13,6 +13,9 @@ import useCreate from '../../hooks/useCreate';
 const AdminCreateCourse = () => {
   const [creatingCourse, setCreatingCourse] = useState(null)
   const [createError, setCreateError] = useState(null)
+  const user = JSON.parse(localStorage.getItem('user'))
+  const Alltoken = JSON.parse(user.Token)
+  const token = Alltoken.token
   const { createUser: createCourse, Error, responseData, isLoading} = useCreate();
   const location = useLocation();
   const navigate = useNavigate()
@@ -48,7 +51,7 @@ const AdminCreateCourse = () => {
                     formData.append('Unit', values.Unit)
 
                     try{
-                      await createCourse(createCourseURL, formData)
+                      await createCourse(createCourseURL, formData, token)
                       if (Error) {
                         // console.log(Error);
                         throw new Error(Error)

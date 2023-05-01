@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-const useFetch = (url) => {
+const useFetch = (url, jwt) => {
     const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -9,7 +9,7 @@ const useFetch = (url) => {
         const abortCont = new AbortController()
         fetch(url, {
         method: 'GET',
-        // headers: { Authorization: 'Bearer ' + jwt },
+        headers: { Authorization: 'Bearer ' + jwt },
         })
         .then((res) => {
             if (!res.ok) {

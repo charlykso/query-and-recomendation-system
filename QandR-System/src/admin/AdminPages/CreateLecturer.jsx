@@ -16,6 +16,9 @@ const CreateLecturer = () => {
   const navigate = useNavigate()
   const [creatingLecturer, setCreatingLecturer] = useState(null)
   const [createError, setCreateError] = useState(null)
+  const user = JSON.parse(localStorage.getItem('user'))
+  const Alltoken = JSON.parse(user.Token)
+  const token = Alltoken.token
   const { createUser: createLecturer, Error, responseData, isLoading} = useCreate();
 
   const successMsg = (resData) => {
@@ -61,7 +64,7 @@ const CreateLecturer = () => {
 
                     try{
                       // console.log(createLecturerURL);
-                      await createLecturer(createLecturerURL, formData)
+                      await createLecturer(createLecturerURL, formData, token)
                       if (Error) {
                         // console.log(Error);
                         throw new Error(Error)

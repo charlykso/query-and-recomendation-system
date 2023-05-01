@@ -25,7 +25,10 @@ const UpdateEvent = () => {
     const updateEventurl =  updateEventURL + Id + '/update'
     // console.log(updateLecturerurl);
     const getEventurl = getEventURL + Id + '/get'
-    const { data: event, isLoading, error} = useFetch(getEventurl)
+    const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data: event, isLoading, error} = useFetch(getEventurl, token)
     const { updateUser: updateEvent, isLoading: updateIsLoading, updateError, responseData} = useUpdate()
     if (event) {
     //   var courses = lecturer.Lecturer_Courses
@@ -62,7 +65,7 @@ const UpdateEvent = () => {
 
                     try{
                         let updateEventurl = updateEventURL + Id + '/update'
-                        await updateEvent(updateEventurl, formData)
+                        await updateEvent(updateEventurl, formData, token)
                         if (error) {
                           throw new Error(error)
                         }else{

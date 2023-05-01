@@ -31,7 +31,7 @@ export const deleteEventURL = baseUrl + '/event/'
 export const updateEventURL = baseUrl + '/event/'
 export const createEventURL = baseUrl + '/event/create'
 export const getQueryEventsURL = baseUrl + '/event/queries/getAll'
-export const getRecommendationEventsURL = baseUrl + '/event/recommendation/getAll'
+export const getRecommendationEventsURL = baseUrl + '/event/recomendation/getAll'
 export const getStudentQueryEvents = baseUrl + '/event/students/'
 export const getStudentRecommendationEvents = baseUrl + '/event/students/'
 

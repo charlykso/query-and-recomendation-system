@@ -26,53 +26,55 @@ import StudentHomePage from './student/components/StudentHomePage';
 import StudentQueries from './student/pages/StudentQueries';
 import StudentRecomendations from './student/pages/StudentRecomendations';
 import StudentCreateEvent from './student/pages/StudentCreateEvent';
+import { useAuthContext } from './hooks/useAuthContex';
 
 
 function App() {
+  const { user } = useAuthContext()
 
   return (
     <div className='App'>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
-        <Route path='/admin' element={<AdminLandingPage />}>
-          <Route path='/admin' element={<AdminHome />} />
+        <Route path='/admin' element={ <AdminLandingPage /> }>
+          <Route path='/admin' element={user ? <AdminHome /> : <LoginPage />} />
 
           {/* course */}
-          <Route path='courses' element={<AdminCourses />}/>
-          <Route path='courses/:Id/update' element={<UpdateCourse />}/>
-          <Route path='courses/create' element={<AdminCreateCourse />}/>
+          <Route path='courses' element={user ? <AdminCourses /> : <LoginPage />}/>
+          <Route path='courses/:Id/update' element={user ? <UpdateCourse /> : <LoginPage />}/>
+          <Route path='courses/create' element={user ?<AdminCreateCourse /> : <LoginPage />}/>
 
           {/* event */}
-          <Route path='events' element={<AdminEvents />} />
-          <Route path='events/:Id/update' element={<UpdateEvent />} />
+          <Route path='events' element={user ?<AdminEvents /> : <LoginPage />} />
+          <Route path='events/:Id/update' element={user ?<UpdateEvent /> : <LoginPage />} />
 
           {/* student */}
-          <Route path='students' element={<AdminStudents />}/>
-          <Route path='students/:Id/update' element={<UpdateStudent />}/>
-          <Route path='students/create' element={<AdminCreateStudent />}/>
+          <Route path='students' element={user ?<AdminStudents /> : <LoginPage />}/>
+          <Route path='students/:Id/update' element={user ?<UpdateStudent /> : <LoginPage />}/>
+          <Route path='students/create' element={user ?<AdminCreateStudent /> : <LoginPage />}/>
 
           {/* //lecturer */}
-          <Route path='lecturers' element={<AdminLecturers />}/>
-          <Route path='lecturer/:Id/update' element={<UpdateLecturers />}/>
-          <Route path='lecturers/create' element={<CreateLecturer />} />
+          <Route path='lecturers' element={user ?<AdminLecturers /> : <LoginPage />}/>
+          <Route path='lecturer/:Id/update' element={user ?<UpdateLecturers /> : <LoginPage />}/>
+          <Route path='lecturers/create' element={user ?<CreateLecturer /> : <LoginPage />} />
 
           {/* course allocation */}
-          <Route path='courseAllocations' element={<AdminCourseAllocation />}/>
-          <Route path='courseAllocations/:Id/update/:CourseId' element={<UpdateCourseAllocation />} />
-          <Route path='courseAllocations/create' element={<AdminCreateCourseAllocation />}/>
+          <Route path='courseAllocations' element={user ?<AdminCourseAllocation /> : <LoginPage />}/>
+          <Route path='courseAllocations/:Id/update/:CourseId' element={user ?<UpdateCourseAllocation /> : <LoginPage />} />
+          <Route path='courseAllocations/create' element={user ?<AdminCreateCourseAllocation /> : <LoginPage />}/>
         </Route>
         <Route path='/' element={<StudentLandingPage />}>
-          <Route path='/' element={<StudentHomePage />} />
-          <Route path='/student/events/queries' element={<StudentQueries />} />
-          <Route path='/student/events/recommendations' element={<StudentRecomendations />} />
-          <Route path='/students/event/create' element={<StudentCreateEvent />} />
+          <Route path='/' element={user ? <StudentHomePage />: <LoginPage />} />
+          <Route path='/student/events/queries' element={user ? <StudentQueries />: <LoginPage />} />
+          <Route path='/student/events/recommendations' element={user ? <StudentRecomendations />: <LoginPage />} />
+          <Route path='/students/event/create' element={user ? <StudentCreateEvent />: <LoginPage />} />
           <Route path='/students/:Id/events' />
         </Route>
         <Route path='/lecturer' element={<LecturerLandingPage />}>
-          <Route path='/lecturer' element={<LecturerHomePage />} />
-          <Route path='/lecturer/events/queries' element={<LecturerQueries />} />
-          <Route path='/lecturer/events/recommendations' element={<LecturerRecomendations />} />
+          <Route path='/lecturer' element={user ? <LecturerHomePage /> : <LoginPage />} />
+          <Route path='/lecturer/events/queries' element={user ? <LecturerQueries /> : <LoginPage />} />
+          <Route path='/lecturer/events/recommendations' element={user ? <LecturerRecomendations /> : <LoginPage />} />
         </Route>
       </Routes>
     </div>

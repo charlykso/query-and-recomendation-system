@@ -5,7 +5,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -36,6 +35,7 @@ import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip'
 import BallotIcon from '@mui/icons-material/Ballot';
 import useLogout from '../../hooks/useLogout';
+import { useAuthContext } from '../../hooks/useAuthContex';
 
 const drawerWidth = 240;
 
@@ -106,18 +106,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 
 const Sidebar = () => {
-    const [anchorEl, setAnchorEl] = useState(null)
-    const [value, setValue] = useState(0);
-    const { logout } = useLogout()
-    const openMenu = Boolean(anchorEl)
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget)
-    }
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [value, setValue] = useState(0);
+  const { user } = useAuthContext()
+  const { logout } = useLogout()
+  const openMenu = Boolean(anchorEl)
+  const handleClick = (event) => {
+      setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+      setAnchorEl(null)
+  }
 
-    const theme = useTheme();
+  const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -153,9 +154,10 @@ const Sidebar = () => {
             <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>
                 Admin Q & R system
             </Typography>
+            { user && 
             <Stack spacing={2} direction='row'>
                 <Button color='inherit' onClick={handleLogout}>Logout</Button>
-            </Stack>
+            </Stack>}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -181,7 +183,6 @@ const Sidebar = () => {
                 aria-expanded={openMenu ? 'true' : undefined}
               >
                 
-        
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -212,7 +213,6 @@ const Sidebar = () => {
                 aria-expanded={openMenu ? 'true' : undefined}
               >
                 
-        
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -243,7 +243,6 @@ const Sidebar = () => {
                 aria-expanded={openMenu ? 'true' : undefined}
               >
                 
-        
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -274,7 +273,6 @@ const Sidebar = () => {
                 aria-expanded={openMenu ? 'true' : undefined}
               >
                 
-        
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -305,7 +303,6 @@ const Sidebar = () => {
                   aria-expanded={openMenu ? 'true' : undefined}
                 >
                   
-          
                   <ListItemIcon
                     sx={{
                       minWidth: 0,
@@ -336,8 +333,7 @@ const Sidebar = () => {
                   aria-haspopup='true'
                   aria-expanded={openMenu ? 'true' : undefined}
                 >
-                  
-          
+                 
                   <ListItemIcon
                     sx={{
                       minWidth: 0,

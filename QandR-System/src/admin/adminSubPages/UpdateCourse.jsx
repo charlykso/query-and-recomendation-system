@@ -15,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MuiSelect from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import useUpdate from '../../hooks/useUpdate'
+import { Token } from '@mui/icons-material'
 
 const UpdateCourse = () => {
     const { Id } = useParams()
@@ -25,7 +26,10 @@ const UpdateCourse = () => {
     const updateCourseurl =  updateCourseURL + Id + '/update'
     // console.log(updateLecturerurl);
     const getcourseurl = getCourseURL + Id + '/get'
-    const { data: course, isLoading, error} = useFetch(getcourseurl)
+    const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data: course, isLoading, error} = useFetch(getcourseurl, token)
     const { updateUser: updateCourse, isLoading: updateIsLoading, updateError, responseData} = useUpdate()
     if (course) {
       var lecturers = course.lecturer_Courses
@@ -62,7 +66,7 @@ const UpdateCourse = () => {
 
                     try{
                         let updateCourseurl = updateCourseURL + Id + '/update'
-                        await updateCourse(updateCourseurl, formData)
+                        await updateCourse(updateCourseurl, formData, token)
                         if (error) {
                           throw new Error(error)
                         }else{

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using QandR_API.Collective;
 using QandR_API.DTO;
 using QandR_API.Repo;
+using System.Data;
 
 namespace QandR_API.Controllers
 {
@@ -15,6 +17,7 @@ namespace QandR_API.Controllers
             _istudent = istudent;
         }
 
+        [Authorize]
         [HttpGet("getAll")]
         public async Task<ActionResult> getStudents()
         {
@@ -33,7 +36,7 @@ namespace QandR_API.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpGet("{id}/get")]
         public async Task<ActionResult> getStudent([FromRoute] string id)
         {
@@ -51,6 +54,7 @@ namespace QandR_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult> createStudent([FromForm] Student_DTO newStudent)
         {
@@ -80,6 +84,7 @@ namespace QandR_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}/update")]
         public async Task<ActionResult> updateStudent([FromForm] Student_DTO newStudent, [FromRoute] string id)
         {
@@ -103,6 +108,7 @@ namespace QandR_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}/delete")]
         public async Task<ActionResult> deleteStudent([FromRoute] string id)
         {

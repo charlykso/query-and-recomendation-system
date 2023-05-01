@@ -18,7 +18,9 @@ const StudentRecomendations = () => {
         })
     const user = JSON.parse(localStorage.getItem('user'))
     const url = getStudentRecommendationEvents + user.Id + '/recomendations'
-    const { data, isLoading, error} = useFetch(url)
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data, isLoading, error} = useFetch(url, token)
 
     const LecDetails = (data) => {
         return data.Lecturer.Title+ ' ' +data.Lecturer.Lastname

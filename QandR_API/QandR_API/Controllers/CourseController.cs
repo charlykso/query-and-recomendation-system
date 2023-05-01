@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using QandR_API.DTO;
 using QandR_API.Models;
 using QandR_API.Repo;
+using System.Data;
 
 namespace QandR_API.Controllers
 {
@@ -14,7 +16,7 @@ namespace QandR_API.Controllers
         {
             _icourse = icourse;
         }
-
+        [Authorize]
         [HttpGet("getAll")]
         public async Task<ActionResult> getCourses()
         {
@@ -34,6 +36,7 @@ namespace QandR_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}/get")]
         public async Task<ActionResult> getCourse([FromRoute] string id)
         {
@@ -53,7 +56,7 @@ namespace QandR_API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<ActionResult> createCourse([FromForm] Course_DTO newCourse)
         {
@@ -84,6 +87,7 @@ namespace QandR_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}/update")]
         public async Task<ActionResult> updateCourse([FromForm] Course_DTO editCourse, [FromRoute] string id)
         {
@@ -108,6 +112,7 @@ namespace QandR_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}/delete")]
         public async Task<ActionResult> deleteCourse([FromRoute] string id)
         {

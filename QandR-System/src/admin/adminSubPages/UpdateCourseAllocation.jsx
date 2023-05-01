@@ -30,7 +30,10 @@ const UpdateCourseAllocation = () => {
     const updateCourseALlourl =  updateCourseAllocationURL + Id + '/update'
     // console.log(updateLecturerurl);
     const getCAurl = getCourseURL + CourseId + '/get'
-    const { data: courseAllo, isLoading, error} = useFetch(getCAurl)
+    const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data: courseAllo, isLoading, error} = useFetch(getCAurl, token)
     const { updateUser: updateCourseAllo, isLoading: updateIsLoading, updateError, responseData} = useUpdate()
     const [lecturerCourse, setLecturerCourse] = useState([]);
 
@@ -79,8 +82,8 @@ const UpdateCourseAllocation = () => {
                     formData.append('LecturerId', values.LecturerId)
 
                     try{
-                        // let updateCAurl = updateCourseAllocationURL + Id + '/update'
-                        // await updateCourseAllo(updateCAurl, formData)
+                        let updateCAurl = updateCourseAllocationURL + Id + '/update'
+                        await updateCourseAllo(updateCAurl, formData, token)
                         if (error) {
                           throw new Error(error)
                         }else{

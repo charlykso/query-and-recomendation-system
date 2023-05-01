@@ -5,14 +5,14 @@ const useCreate = () => {
     const [isLoading, setIsLoading] = useState(null)
     const [responseData, setResponseData] = useState(null)
 
-    const createUser = async (url, formData) => {
+    const createUser = async (url, formData, jwt) => {
         setIsLoading(true)
         setError(null)
 
         const response = await fetch(url, {
         method: 'POST',
         headers: {
-            // Authorization: 'Bearer ' + jwt,
+            Authorization: 'Bearer ' + jwt,
         },
         body: formData,
         })

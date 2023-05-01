@@ -68,3 +68,7 @@ C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\n
 C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\net6.0\AutoMapper.dll
 C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\net6.0\Scrutor.dll
+C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\projects\React\query-and-recomendation-system\QandR_API\QandR_API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

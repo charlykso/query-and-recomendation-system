@@ -26,8 +26,11 @@ const AdminCreateCourseAllocation = () => {
     const [pageLoading, setpageLoading] = useState(null)
     const location = useLocation()
     const navigate = useNavigate()
-    const { data: courses, isLoading: courseIsLoading, error: courseError} = useFetch(getCoursesURL)
-    const { data: lecturers, isLoading: lecturerIsLoading, error: lecturerError} = useFetch(getLecturersURL)
+    const user = JSON.parse(localStorage.getItem('user'))
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data: courses, isLoading: courseIsLoading, error: courseError} = useFetch(getCoursesURL, token)
+    const { data: lecturers, isLoading: lecturerIsLoading, error: lecturerError} = useFetch(getLecturersURL, token)
     const { createUser: createCourseAlloc, Error, responseData, isLoading} = useCreate();
 
     // if (courses) {
@@ -65,7 +68,7 @@ const AdminCreateCourseAllocation = () => {
                 formData.append('LecturerId', ele)
                 try {
                     // console.log(formData);
-                    await createCourseAlloc(createCourseAllocationURL, formData)
+                    await createCourseAlloc(createCourseAllocationURL, formData, token)
                     if (Error) {
                         setLecturerErrMsg(Error)
                     }

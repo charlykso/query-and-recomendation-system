@@ -18,23 +18,25 @@ const LecturerQueries = () => {
     global: {value: null, matchMode: FilterMatchMode.CONTAINS },
         })
     const user = JSON.parse(localStorage.getItem('user'))
-    const { data, isLoading, error} = useFetch(getQueryEventsURL)
+    const Alltoken = JSON.parse(user.Token)
+    const token = Alltoken.token
+    const { data, isLoading, error} = useFetch(getQueryEventsURL, token)
     if (user) {
-        console.log(user);
+        // console.log(user);
     }
   if (data) {
-    console.log(data);
+    // console.log(data);
     data.map((da) => 
     {
-            console.log(da.LecturerId);
+            // console.log(da.LecturerId);
             if (da.LecturerId === user.Id) {
-            console.log(da);
+            // console.log(da);
             listQueries.push(da)
         }}
     )
   }
   if (listQueries) {
-      console.log(listQueries);
+      // console.log(listQueries);
   }
   return (
     <Box sx={{ p: 1}}>

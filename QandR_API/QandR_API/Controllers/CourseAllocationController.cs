@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using QandR_API.DTO;
 using QandR_API.Models;
 using QandR_API.Repo;
+using System.Data;
 
 namespace QandR_API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class CourseAllocationController : ControllerBase
